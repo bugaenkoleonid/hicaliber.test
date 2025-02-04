@@ -1,7 +1,7 @@
 <template>
     <el-container>
         <el-header>
-            <h2 class="header-title">Поиск домов</h2>
+            <h2 class="header-title">House Search</h2>
         </el-header>
         <el-main>
             <el-row type="flex" justify="center">
@@ -10,33 +10,33 @@
                         <el-form :model="searchForm" label-position="top">
                             <el-row :gutter="20">
                                 <el-col :span="24" :sm="8">
-                                    <el-form-item label="Название">
+                                    <el-form-item label="Name">
                                         <el-input 
                                             v-model="searchForm.name" 
-                                            placeholder="Введите название дома"
+                                            placeholder="Enter house name"
                                             clearable
                                         ></el-input>
                                     </el-form-item>
                                 </el-col>
                                 
                                 <el-col :span="24" :sm="8">
-                                    <el-form-item label="Спальни">
+                                    <el-form-item label="Bedrooms">
                                         <el-input-number 
                                             v-model="searchForm.bedrooms" 
                                             :min="0" 
                                             controls-position="right"
-                                            placeholder="Количество спален"
+                                            placeholder="Number of bedrooms"
                                         ></el-input-number>
                                     </el-form-item>
                                 </el-col>
                                 
                                 <el-col :span="24" :sm="8">
-                                    <el-form-item label="Ванные">
+                                    <el-form-item label="Bathrooms">
                                         <el-input-number 
                                             v-model="searchForm.bathrooms" 
                                             :min="0"
                                             controls-position="right"
-                                            placeholder="Количество ванных"
+                                            placeholder="Number of bathrooms"
                                         ></el-input-number>
                                     </el-form-item>
                                 </el-col>
@@ -44,24 +44,23 @@
 
                             <el-row :gutter="20">
                                 <el-col :span="24" :sm="8">
-                                    <el-form-item label="Этажи">
+                                    <el-form-item label="Storeys">
                                         <el-input-number 
                                             v-model="searchForm.storeys" 
                                             :min="0"
                                             controls-position="right"
-                                            placeholder="Количество этажей"
+                                            placeholder="Number of storeys"
                                         ></el-input-number>
                                     </el-form-item>
-                                    
                                 </el-col>
                                 
                                 <el-col :span="24" :sm="8">
-                                    <el-form-item label="Гаражи">
+                                    <el-form-item label="Garages">
                                         <el-input-number 
                                             v-model="searchForm.garages" 
                                             :min="0"
                                             controls-position="right"
-                                            placeholder="Количество гаражей"
+                                            placeholder="Number of garages"
                                         ></el-input-number>
                                     </el-form-item>
                                 </el-col>
@@ -69,7 +68,7 @@
 
                             <el-row>
                                 <el-col :span="24">
-                                    <el-form-item label="Диапазон цен">
+                                    <el-form-item label="Price Range">
                                         <el-slider
                                             v-model="priceRange"
                                             range
@@ -89,12 +88,12 @@
                                             @click="searchHouses" 
                                             :loading="loading"
                                         >
-                                            Поиск
+                                            Search
                                         </el-button>
                                         <el-button 
                                             @click="resetForm"
                                         >
-                                            Сбросить
+                                            Reset
                                         </el-button>
                                     </el-form-item>
                                 </el-col>
@@ -104,7 +103,7 @@
                         <div v-loading="loading">
                             <el-empty 
                                 v-if="houses.length === 0 && searched" 
-                                description="Ничего не найдено"
+                                description="No results found"
                             ></el-empty>
 
                             <el-table
@@ -113,16 +112,16 @@
                                 style="width: 100%"
                                 border
                             >
-                                <el-table-column prop="name" label="Название" sortable></el-table-column>
-                                <el-table-column prop="price" label="Цена" sortable>
+                                <el-table-column prop="name" label="Name" sortable></el-table-column>
+                                <el-table-column prop="price" label="Price" sortable>
                                     <template #default="scope">
                                         ${{ formatPrice(scope.row.price) }}
                                     </template>
                                 </el-table-column>
-                                <el-table-column prop="bedrooms" label="Спальни" sortable></el-table-column>
-                                <el-table-column prop="bathrooms" label="Ванные" sortable></el-table-column>
-                                <el-table-column prop="storeys" label="Этажи" sortable></el-table-column>
-                                <el-table-column prop="garages" label="Гаражи" sortable></el-table-column>
+                                <el-table-column prop="bedrooms" label="Bedrooms" sortable></el-table-column>
+                                <el-table-column prop="bathrooms" label="Bathrooms" sortable></el-table-column>
+                                <el-table-column prop="storeys" label="Storeys" sortable></el-table-column>
+                                <el-table-column prop="garages" label="Garages" sortable></el-table-column>
                             </el-table>
                         </div>
                     </el-card>
@@ -184,7 +183,7 @@ export default {
                 const response = await axios.get('/api/houses/search', { params });
                 this.houses = response.data;
             } catch (error) {
-                this.$message.error('Произошла ошибка при поиске');
+                this.$message.error('Error occurred while searching');
                 console.error(error);
             } finally {
                 this.loading = false;
