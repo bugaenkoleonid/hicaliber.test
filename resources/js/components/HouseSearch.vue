@@ -71,8 +71,8 @@
                                 <el-slider
                                     v-model="priceRange"
                                     range
-                                    :min="0"
-                                    :max="1000000"
+                                    :min="minPrice"
+                                    :max="maxPrice"
                                     :step="1000"
                                     show-stops
                                 ></el-slider>
@@ -130,6 +130,12 @@
 
 <script>
 export default {
+    props: {
+        initialPriceRange: {
+            type: Object,
+            required: true
+        }
+    },
     data() {
         return {
             searchForm: {
@@ -139,7 +145,9 @@ export default {
                 storeys: null,
                 garages: null,
             },
-            priceRange: [0, 1000000],
+            priceRange: [this.initialPriceRange.min, this.initialPriceRange.max],
+            minPrice: this.initialPriceRange.min,
+            maxPrice: this.initialPriceRange.max,
             houses: [],
             loading: false,
             searched: false
@@ -177,7 +185,7 @@ export default {
                 storeys: null,
                 garages: null
             };
-            this.priceRange = [0, 1000000];
+            this.priceRange = [this.minPrice, this.maxPrice];
             this.houses = [];
             this.searched = false;
         },
