@@ -52,6 +52,7 @@
                                             placeholder="Количество этажей"
                                         ></el-input-number>
                                     </el-form-item>
+                                    
                                 </el-col>
                                 
                                 <el-col :span="24" :sm="8">
@@ -133,6 +134,7 @@
 
 <script>
 export default {
+    name: 'HouseSearch',
     props: {
         initialPriceRange: {
             type: Object,
@@ -165,11 +167,19 @@ export default {
                 const params = {
                     ...Object.fromEntries(
                         Object.entries(this.searchForm)
-                            .filter(([_, value]) => value !== null && value !== '')
+                            .filter(([_, value]) => value !== null && value !== '' && value !== 0)
                     ),
                     price_from: this.priceRange[0],
                     price_to: this.priceRange[1]
                 };
+                
+                if (params.price_from === this.minPrice) {
+                    delete params.price_from;
+                }
+                
+                if (params.price_to === this.maxPrice) {
+                    delete params.price_to;
+                }
                 
                 const response = await axios.get('/api/houses/search', { params });
                 this.houses = response.data;

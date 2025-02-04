@@ -1,10 +1,15 @@
 import './bootstrap';
-import { createApp } from 'vue';
-import ElementPlus from 'element-plus';
-import 'element-plus/dist/index.css';
+import Vue from 'vue';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import locale from 'element-ui/lib/locale/lang/ru-RU'
 import HouseSearch from './components/HouseSearch.vue';
 
-const app = createApp({});
-app.use(ElementPlus);
-app.component('house-search', HouseSearch);
-app.mount('#app');
+Vue.use(ElementUI, { locale });
+
+new Vue({
+    el: '#app',
+    components: {
+        'house-search': HouseSearch
+    }
+});
