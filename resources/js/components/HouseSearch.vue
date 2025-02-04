@@ -1,129 +1,132 @@
 <template>
     <el-container>
+        <el-header>
+            <h2 class="header-title">Поиск домов</h2>
+        </el-header>
         <el-main>
-            <el-card class="search-card">
-                <template #header>
-                    <h2>Поиск домов</h2>
-                </template>
-                
-                <el-form :model="searchForm" label-position="top">
-                    <el-row :gutter="20">
-                        <el-col :span="8">
-                            <el-form-item label="Название">
-                                <el-input 
-                                    v-model="searchForm.name" 
-                                    placeholder="Введите название дома"
-                                    clearable
-                                ></el-input>
-                            </el-form-item>
-                        </el-col>
-                        
-                        <el-col :span="8">
-                            <el-form-item label="Спальни">
-                                <el-input-number 
-                                    v-model="searchForm.bedrooms" 
-                                    :min="0" 
-                                    controls-position="right"
-                                    placeholder="Количество спален"
-                                ></el-input-number>
-                            </el-form-item>
-                        </el-col>
-                        
-                        <el-col :span="8">
-                            <el-form-item label="Ванные">
-                                <el-input-number 
-                                    v-model="searchForm.bathrooms" 
-                                    :min="0"
-                                    controls-position="right"
-                                    placeholder="Количество ванных"
-                                ></el-input-number>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
+            <el-row type="flex" justify="center">
+                <el-col :span="24" :md="20" :lg="18">
+                    <el-card>
+                        <el-form :model="searchForm" label-position="top">
+                            <el-row :gutter="20">
+                                <el-col :span="24" :sm="8">
+                                    <el-form-item label="Название">
+                                        <el-input 
+                                            v-model="searchForm.name" 
+                                            placeholder="Введите название дома"
+                                            clearable
+                                        ></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                
+                                <el-col :span="24" :sm="8">
+                                    <el-form-item label="Спальни">
+                                        <el-input-number 
+                                            v-model="searchForm.bedrooms" 
+                                            :min="0" 
+                                            controls-position="right"
+                                            placeholder="Количество спален"
+                                        ></el-input-number>
+                                    </el-form-item>
+                                </el-col>
+                                
+                                <el-col :span="24" :sm="8">
+                                    <el-form-item label="Ванные">
+                                        <el-input-number 
+                                            v-model="searchForm.bathrooms" 
+                                            :min="0"
+                                            controls-position="right"
+                                            placeholder="Количество ванных"
+                                        ></el-input-number>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
 
-                    <el-row :gutter="20">
-                        <el-col :span="8">
-                            <el-form-item label="Этажи">
-                                <el-input-number 
-                                    v-model="searchForm.storeys" 
-                                    :min="0"
-                                    controls-position="right"
-                                    placeholder="Количество этажей"
-                                ></el-input-number>
-                            </el-form-item>
-                        </el-col>
-                        
-                        <el-col :span="8">
-                            <el-form-item label="Гаражи">
-                                <el-input-number 
-                                    v-model="searchForm.garages" 
-                                    :min="0"
-                                    controls-position="right"
-                                    placeholder="Количество гаражей"
-                                ></el-input-number>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
+                            <el-row :gutter="20">
+                                <el-col :span="24" :sm="8">
+                                    <el-form-item label="Этажи">
+                                        <el-input-number 
+                                            v-model="searchForm.storeys" 
+                                            :min="0"
+                                            controls-position="right"
+                                            placeholder="Количество этажей"
+                                        ></el-input-number>
+                                    </el-form-item>
+                                </el-col>
+                                
+                                <el-col :span="24" :sm="8">
+                                    <el-form-item label="Гаражи">
+                                        <el-input-number 
+                                            v-model="searchForm.garages" 
+                                            :min="0"
+                                            controls-position="right"
+                                            placeholder="Количество гаражей"
+                                        ></el-input-number>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
 
-                    <el-row :gutter="20">
-                        <el-col :span="24">
-                            <el-form-item label="Диапазон цен">
-                                <el-slider
-                                    v-model="priceRange"
-                                    range
-                                    :min="minPrice"
-                                    :max="maxPrice"
-                                    :step="1000"
-                                    show-stops
-                                ></el-slider>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
+                            <el-row>
+                                <el-col :span="24">
+                                    <el-form-item label="Диапазон цен">
+                                        <el-slider
+                                            v-model="priceRange"
+                                            range
+                                            :min="minPrice"
+                                            :max="maxPrice"
+                                            :step="1000"
+                                        ></el-slider>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
 
-                    <el-form-item>
-                        <el-button 
-                            type="primary" 
-                            @click="searchHouses" 
-                            :loading="loading"
-                            icon="el-icon-search"
-                        >
-                            Поиск
-                        </el-button>
-                        <el-button 
-                            @click="resetForm"
-                            icon="el-icon-refresh"
-                        >
-                            Сбросить
-                        </el-button>
-                    </el-form-item>
-                </el-form>
+                            <el-row>
+                                <el-col :span="24">
+                                    <el-form-item>
+                                        <el-button 
+                                            type="primary" 
+                                            @click="searchHouses" 
+                                            :loading="loading"
+                                        >
+                                            Поиск
+                                        </el-button>
+                                        <el-button 
+                                            @click="resetForm"
+                                        >
+                                            Сбросить
+                                        </el-button>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                        </el-form>
 
-                <div v-loading="loading" element-loading-text="Поиск домов...">
-                    <el-empty 
-                        v-if="houses.length === 0 && searched" 
-                        description="Ничего не найдено"
-                    ></el-empty>
+                        <div v-loading="loading">
+                            <el-empty 
+                                v-if="houses.length === 0 && searched" 
+                                description="Ничего не найдено"
+                            ></el-empty>
 
-                    <el-table
-                        v-else-if="houses.length > 0"
-                        :data="houses"
-                        stripe
-                        border
-                        style="width: 100%"
-                    >
-                        <el-table-column prop="name" label="Название" sortable></el-table-column>
-                        <el-table-column prop="price" label="Цена" sortable>
-                            <template #default="scope">
-                                ${{ formatPrice(scope.row.price) }}
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="bedrooms" label="Спальни" sortable></el-table-column>
-                        <el-table-column prop="bathrooms" label="Ванные" sortable></el-table-column>
-                        <el-table-column prop="storeys" label="Этажи" sortable></el-table-column>
-                        <el-table-column prop="garages" label="Гаражи" sortable></el-table-column>
-                    </el-table>
-                </div>
-            </el-card>
+                            <el-table
+                                v-else-if="houses.length > 0"
+                                :data="houses"
+                                style="width: 100%"
+                                border
+                            >
+                                <el-table-column prop="name" label="Название" sortable></el-table-column>
+                                <el-table-column prop="price" label="Цена" sortable>
+                                    <template #default="scope">
+                                        ${{ formatPrice(scope.row.price) }}
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="bedrooms" label="Спальни" sortable></el-table-column>
+                                <el-table-column prop="bathrooms" label="Ванные" sortable></el-table-column>
+                                <el-table-column prop="storeys" label="Этажи" sortable></el-table-column>
+                                <el-table-column prop="garages" label="Гаражи" sortable></el-table-column>
+                            </el-table>
+                        </div>
+                    </el-card>
+                </el-col>
+            </el-row>
         </el-main>
     </el-container>
 </template>
@@ -197,15 +200,44 @@ export default {
 </script>
 
 <style>
-.search-card {
-    max-width: 1200px;
-    margin: 20px auto;
-    box-shadow: none;
+.el-header {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
 }
+
+.header-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #303133;
+}
+
+.el-main {
+    padding: 20px;
+    background-color: #f5f7fa;
+    min-height: calc(100vh - 60px);
+}
+
 .el-input-number {
     width: 100%;
 }
+
+.el-card {
+    margin-bottom: 20px;
+}
+
 .el-form-item {
-    margin-bottom: 22px;
+    margin-bottom: 18px;
+}
+
+.el-slider {
+    margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+    .el-form-item {
+        margin-bottom: 12px;
+    }
 }
 </style> 
