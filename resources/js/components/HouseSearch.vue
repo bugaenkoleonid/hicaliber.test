@@ -66,27 +66,16 @@
                     </el-row>
 
                     <el-row :gutter="20">
-                        <el-col :span="12">
-                            <el-form-item label="Цена от">
-                                <el-input-number 
-                                    v-model="searchForm.price_from" 
-                                    :min="0" 
+                        <el-col :span="24">
+                            <el-form-item label="Диапазон цен">
+                                <el-slider
+                                    v-model="priceRange"
+                                    range
+                                    :min="0"
+                                    :max="1000000"
                                     :step="1000"
-                                    controls-position="right"
-                                    placeholder="Минимальная цена"
-                                ></el-input-number>
-                            </el-form-item>
-                        </el-col>
-                        
-                        <el-col :span="12">
-                            <el-form-item label="Цена до">
-                                <el-input-number 
-                                    v-model="searchForm.price_to" 
-                                    :min="0" 
-                                    :step="1000"
-                                    controls-position="right"
-                                    placeholder="Максимальная цена"
-                                ></el-input-number>
+                                    show-stops
+                                ></el-slider>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -149,9 +138,8 @@ export default {
                 bathrooms: null,
                 storeys: null,
                 garages: null,
-                price_from: null,
-                price_to: null
             },
+            priceRange: [0, 1000000],
             houses: [],
             loading: false,
             searched: false
@@ -163,10 +151,14 @@ export default {
             this.searched = true;
             
             try {
-                const params = Object.fromEntries(
-                    Object.entries(this.searchForm)
-                        .filter(([_, value]) => value !== null && value !== '')
-                );
+                const params = {
+                    ...Object.fromEntries(
+                        Object.entries(this.searchForm)
+                            .filter(([_, value]) => value !== null && value !== '')
+                    ),
+                    price_from: this.priceRange[0],
+                    price_to: this.priceRange[1]
+                };
                 
                 const response = await axios.get('/api/houses/search', { params });
                 this.houses = response.data;
@@ -183,10 +175,9 @@ export default {
                 bedrooms: null,
                 bathrooms: null,
                 storeys: null,
-                garages: null,
-                price_from: null,
-                price_to: null
+                garages: null
             };
+            this.priceRange = [0, 1000000];
             this.houses = [];
             this.searched = false;
         },
@@ -201,6 +192,7 @@ export default {
 .search-card {
     max-width: 1200px;
     margin: 20px auto;
+    box-shadow: none;
 }
 .el-input-number {
     width: 100%;
